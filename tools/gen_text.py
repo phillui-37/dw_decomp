@@ -15,7 +15,7 @@ __LANGUAGES = {
     'eu': 'en_eu',
 }
 
-__FALLBACKS = {'en_eu': 'en_us'}
+__FALLBACKS = {'en_eu': 'en_us', 'zh_hant': 'ja'}
 
 
 def __full_width(text):
@@ -42,9 +42,16 @@ __CHARMAPS = {
     'ja': lambda text: text,
     'en_us': lambda text: text,
     'en_eu': __full_width,
+    # Community localizations: the text is written against the font the release
+    # ships (its glyph table indexes CP932 codepoints), so it passes through
+    # unchanged and any character outside it fails loudly in __c_string.
+    'zh_hant': lambda text: text,
 }
 
 __STORAGES = ('named', 'literal', 'embedded')
+
+# Set by --lang: the language to take text from instead of the release's own.
+__LANG_OVERRIDE = None
 __TABLE_KEYS = {'storage', 'macro', 'lines', 'empty', 'entries'}
 
 
@@ -90,8 +97,8 @@ def __per_release(field, release, default, where):
 
 
 def __text(entry, release, where):
-    charmap = __CHARMAPS[__LANGUAGES[release]]
-    language = __LANGUAGES[release]
+    language = __LANG_OVERRIDE or __LANGUAGES[release]
+    charmap = __CHARMAPS[language]
     while language:
         for key in ('{}@{}'.format(language, release), language):
             if key in entry:
@@ -101,7 +108,7 @@ def __text(entry, release, where):
                             for v in value]
                 return None if value == 'NULL' else charmap(value)
         language = __FALLBACKS.get(language)
-    __fail(where, 'no {} text'.format(__LANGUAGES[release]))
+    __fail(where, 'no {} text'.format(__LANG_OVERRIDE or __LANGUAGES[release]))
 
 
 def __string(entry, release, where):
@@ -256,12 +263,17 @@ def __parse_args():
     parser.add_argument('release', choices=__LANGUAGES)
     parser.add_argument('yaml', type=Path)
     parser.add_argument('out', type=Path)
+    # The language to take text from (a key of the yaml entries), defaulting to
+    # the release's own; falls back along __FALLBACKS when an entry has none.
+    parser.add_argument('--lang', choices=sorted(__CHARMAPS))
 
     return parser.parse_args()
 
 
 def __main():
     args = __parse_args()
+    global __LANG_OVERRIDE
+    __LANG_OVERRIDE = args.lang
 
     with open(args.yaml, encoding='utf-8') as f:
         blocks = yaml.load(f, Loader=yaml.BaseLoader)

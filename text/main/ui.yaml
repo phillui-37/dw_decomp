@@ -5,18 +5,24 @@ STAT_LABELS:
     - name: STR_STAT_LABEL_HP
       ja: 最大ＨＰ
       en_us: HP
+      zh_hant: 體力
     - name: STR_STAT_LABEL_MP
       ja: 最大ＭＰ
       en_us: MP
+      zh_hant: 魔力
     - name: STR_STAT_LABEL_OFFENSE
       ja: 攻撃力
       en_us: Off
+      zh_hant: 攻勢
     - name: STR_STAT_LABEL_DEFENSE
       ja: 防御力
       en_us: Def
+      zh_hant: 防禦
     - name: STR_STAT_LABEL_SPEED
       ja: すばやさ
       en_us: Speed
+      zh_hant: 速度
     - name: STR_STAT_LABEL_BRAINS
       ja: かしこさ
       en_us: Brain
+      zh_hant: 聰明
