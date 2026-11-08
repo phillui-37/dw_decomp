@@ -270,6 +270,18 @@ int32_t STD_D_8007BA44[22] = {
 	0xafb20020, 0xafb1001c,
 };
 
+#ifdef DW1_NATIVE
+/* The camera-intro curves the PS1 laid out as two adjacent arrays and indexed across; the
+   native build holds each pair in one array (dw/std.h). */
+int32_t STD_D_8007B9EC[22] = {
+	0xafb00018, 0xafa40048, 0xafa5004c, 0xafa60050,
+	0xafa70054, 0x8fb20058, 0x0c0263c0, 0x00000000,
+	0x00408021, 0x02002021, 0x0c025b76, 0x00000000,
+	0x24020080, 0xa2020004, 0x24020080, 0xa2020005,
+	0x24020080, 0xa2020006, 0x2402000d, 0xa6020016,
+	0x24040010, 0x240501e0,
+};
+#else
 int32_t STD_D_8007B9EC[4] = {
 	0xafb00018, 0xafa40048, 0xafa5004c, 0xafa60050,
 };
@@ -281,7 +293,18 @@ int32_t STD_D_8007B9FC[18] = {
 	0x24020080, 0xa2020006, 0x2402000d, 0xa6020016,
 	0x24040010, 0x240501e0,
 };
+#endif
 
+#ifdef DW1_NATIVE
+int32_t STD_D_8007BA9C[22] = {
+	0x0c025b42, 0x00000000, 0xa602000e, 0x24020012,
+	0xafa20010, 0x02002021, 0x24050078, 0x24060030,
+	0x24070008, 0x0c040f09, 0x00000000, 0x24020012,
+	0xafa20010, 0x02002021, 0x2405ffe4, 0x2406ff9d,
+	0x24070008, 0x0c040f33, 0x00000000, 0x8f8294a0,
+	0x00121880, 0x8c420004,
+};
+#else
 int32_t STD_D_8007BA9C[4] = {
 	0x0c025b42, 0x00000000, 0xa602000e, 0x24020012,
 };
@@ -293,6 +316,7 @@ int32_t STD_D_8007BAAC[18] = {
 	0x24070008, 0x0c040f33, 0x00000000, 0x8f8294a0,
 	0x00121880, 0x8c420004,
 };
+#endif
 
 StdUnkBAF4 STD_BRACKET_SLOTS[8] = {
 	{

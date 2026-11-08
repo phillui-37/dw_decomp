@@ -1554,7 +1554,9 @@ uint8_t SAVE_ICON_FRAMES[3][128] = {
 	},
 };
 
-#if VERSION_IS(US)
+#if VERSION_IS(US) || defined(DW1_NATIVE)
+/* The native build's save seeding (below) keeps a reserved-title field on every version;
+   the retail disc only has it on US. */
 uint8_t SAVE_TITLE_RESERVED[28] = { 0 };
 #endif
 // clang-format on

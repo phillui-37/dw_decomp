@@ -1931,7 +1931,13 @@ void STD_runIntro(int16_t which)
 	STD_drawStatLabelText();
 	STD_startCameraChase(ENTITY_TABLE[1], dist, 0);
 #if !VERSION_IS(US)
+#ifdef DW1_NATIVE
+	/* The JP disc's leftover v0 at this call is unmeasured; the intro fallback the US
+	   build was audited with (docs/phase5-returns-audit.md) applies here too. */
+	id = STD_getEntityIndex(ENTITY_TABLE[1], (int16_t)GS_VIEWPOINT.vpy);
+#else
 	id = STD_getEntityIndex(ENTITY_TABLE[1]);
+#endif
 #else
 #ifdef DW1_NATIVE
 	idn = STD_getEntityIndex(ENTITY_TABLE[1], (int16_t)GS_VIEWPOINT.vpy);
@@ -1967,7 +1973,11 @@ void STD_runIntro(int16_t which)
 
 	STD_startCameraChase(STD_OPPONENT_ENTITY, -dist, 1);
 #if !VERSION_IS(US)
+#ifdef DW1_NATIVE
+	id = STD_getEntityIndex(STD_OPPONENT_ENTITY, (int16_t)GS_VIEWPOINT.vpy);
+#else
 	id = STD_getEntityIndex(STD_OPPONENT_ENTITY);
+#endif
 #else
 #ifdef DW1_NATIVE
 	idn = STD_getEntityIndex(STD_OPPONENT_ENTITY, (int16_t)GS_VIEWPOINT.vpy);

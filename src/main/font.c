@@ -1764,7 +1764,7 @@ void drawString(str, x, y)
 #endif
 
 #if defined(DW1_NATIVE) && VERSION_IS(US)
-/* How wide drawString draws ASCII `str`, for the Mac app's additions to lay text out. A
+/* How wide drawString draws ASCII `str`, for the app's additions to lay text out. A
  * character with no glyph counts as the last glyph, as drawGlyph draws it. */
 int32_t dw1_text_width(char *str)
 {
@@ -1784,6 +1784,18 @@ int32_t dw1_text_width(char *str)
 		for (n = 0; n < NUM_GLYPHS - 1 && CHAR_TO_GLYPH_TABLE[n] != code; n++) {
 		}
 		width += GLYPH_DATA[n].width;
+	}
+	return width;
+}
+#elif defined(DW1_NATIVE)
+/* The same for the fixed-width fonts: every character, ASCII included, advances
+   GLYPH_WIDTH (12 on JP, 8 on EU; font.c's drawString). */
+int32_t dw1_text_width(char *str)
+{
+	int32_t width = 0;
+
+	for (; *str != '\0'; str++) {
+		width += GLYPH_WIDTH;
 	}
 	return width;
 }
