@@ -5,19 +5,21 @@ STAT_LABELS:
     - name: STR_STAT_LABEL_HP
       ja: 最大ＨＰ
       en_us: HP
-      zh_hant: 體力
+      # zh_hant POC: kept to glyphs the shipped JP font's 992-entry table has (docs/i18n-font-notes.md);
+      # 體/魔/勢/禦/聰 would draw as tofu until a font pack replaces the table.
+      zh_hant: 体力
     - name: STR_STAT_LABEL_MP
       ja: 最大ＭＰ
       en_us: MP
-      zh_hant: 魔力
+      zh_hant: 気力
     - name: STR_STAT_LABEL_OFFENSE
       ja: 攻撃力
       en_us: Off
-      zh_hant: 攻勢
+      zh_hant: 攻撃
     - name: STR_STAT_LABEL_DEFENSE
       ja: 防御力
       en_us: Def
-      zh_hant: 防禦
+      zh_hant: 防御
     - name: STR_STAT_LABEL_SPEED
       ja: すばやさ
       en_us: Speed
@@ -25,4 +27,4 @@ STAT_LABELS:
     - name: STR_STAT_LABEL_BRAINS
       ja: かしこさ
       en_us: Brain
-      zh_hant: 聰明
+      zh_hant: 精神
